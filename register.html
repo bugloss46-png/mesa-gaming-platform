@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>try{const t=JSON.parse(localStorage.getItem('mesaSettings')||'{}').theme;if(t&&t!=='default')document.documentElement.dataset.theme=t}catch(e){}</script>
+    <title>Регистрация - Mesa</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="auth.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="index.html" class="logo">MESA</a>
+                <ul class="nav-menu">
+                    <li><a href="index.html" class="nav-link">Главная</a></li>
+                    <li><a href="index.html#tournaments" class="nav-link">Турниры</a></li>
+                    <li><a href="index.html#matches" class="nav-link">Матчи</a></li>
+                </ul>
+                <div class="nav-auth">
+                    <a href="login.html"><button class="btn-secondary">Войти</button></a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Registration Section -->
+    <section class="auth-section">
+        <div class="auth-container">
+            <div class="auth-box">
+                <h1 class="auth-title">Создать аккаунт</h1>
+                <p class="auth-subtitle">Присоединяйтесь к Mesa и начните соревноваться</p>
+
+                <!-- Steam OAuth -->
+                <button class="btn-steam">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+                        <circle cx="12" cy="12" r="3"/>
+                    </svg>
+                    Войти через Steam
+                </button>
+
+                <div class="auth-divider">
+                    <span>или</span>
+                </div>
+
+                <!-- Registration Form -->
+                <form id="registerForm" class="auth-form">
+                    <div class="form-group">
+                        <label for="nickname">Никнейм</label>
+                        <input type="text" id="nickname" name="nickname" placeholder="Введите никнейм" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" placeholder="your@email.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Пароль</label>
+                        <input type="password" id="password" name="password" placeholder="Минимум 8 символов" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="confirmPassword">Подтвердите пароль</label>
+                        <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Повторите пароль" required>
+                    </div>
+
+                    <div class="form-checkbox">
+                        <input type="checkbox" id="terms" name="terms" required>
+                        <label for="terms">Я принимаю <a href="#">правила платформы</a> и <a href="#">политику конфиденциальности</a></label>
+                    </div>
+
+                    <button type="submit" class="btn-primary btn-large btn-full">Зарегистрироваться</button>
+                </form>
+
+                <p class="auth-link">
+                    Уже есть аккаунт? <a href="login.html">Войти</a>
+                </p>
+            </div>
+
+            <!-- Features Side Panel -->
+            <div class="auth-features">
+                <h2>Преимущества Mesa</h2>
+                <div class="feature-item">
+                    <div class="feature-icon">🏆</div>
+                    <div class="feature-text">
+                        <h3>Турниры и соревнования</h3>
+                        <p>Участвуйте в регулярных турнирах с призовыми фондами</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">📊</div>
+                    <div class="feature-text">
+                        <h3>Система рейтинга</h3>
+                        <p>Отслеживайте свой прогресс и соревнуйтесь за топ позиции</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">👥</div>
+                    <div class="feature-text">
+                        <h3>Сообщество игроков</h3>
+                        <p>Находите союзников и создавайте свои команды</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">⚡</div>
+                    <div class="feature-text">
+                        <h3>Быстрый поиск матчей</h3>
+                        <p>Автоматический подбор соперников по уровню</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script type="module" src="/src/register.ts"></script>
+</body>
+</html>

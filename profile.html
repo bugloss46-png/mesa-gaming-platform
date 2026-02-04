@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>try{const t=JSON.parse(localStorage.getItem('mesaSettings')||'{}').theme;if(t&&t!=='default')document.documentElement.dataset.theme=t}catch(e){}</script>
+    <title>Редактировать профиль - Mesa</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body class="dashboard-body">
+    <!-- Header -->
+    <header class="header">
+        <div class="container-fluid">
+            <nav class="nav">
+                <a href="dashboard.html" class="logo">MESA</a>
+                <div class="nav-search">
+                    <input type="text" id="searchInput" placeholder="Поиск игроков, команд..." autocomplete="off">
+                    <div class="search-results" id="searchResults"></div>
+                </div>
+                <div class="nav-user">
+                    <div class="user-profile-header" id="userProfileToggle">
+                        <div class="avatar-wrapper">
+                            <img src="https://via.placeholder.com/40" alt="Avatar" class="user-avatar-small" id="headerAvatar">
+                            <span class="status-dot online" id="headerStatusDot"></span>
+                        </div>
+                        <div class="user-info-small">
+                            <span class="user-name-header" id="userNameHeader">Player</span>
+                            <span class="user-level-header">Уровень <span id="userLevelHeader">1</span></span>
+                        </div>
+                        <div class="profile-dropdown" id="profileDropdown">
+                            <div class="dropdown-header">
+                                <div class="dropdown-avatar-wrapper">
+                                    <img src="https://via.placeholder.com/48" alt="Avatar" class="dropdown-avatar" id="dropdownAvatar">
+                                    <span class="status-dot online" id="dropdownStatusDot"></span>
+                                </div>
+                                <div class="dropdown-user-info">
+                                    <span class="dropdown-user-name" id="dropdownUserName">Player</span>
+                                    <span class="dropdown-user-status" id="dropdownStatusText">В сети</span>
+                                </div>
+                            </div>
+                            <div class="dropdown-divider"></div>
+                            <div class="dropdown-item dropdown-status-toggle" id="onlineStatusToggle">
+                                <span class="dropdown-icon">🟢</span>
+                                <span>В сети</span>
+                                <label class="dropdown-toggle">
+                                    <input type="checkbox" id="onlineStatusCheckbox" checked>
+                                    <span class="toggle-slider-mini"></span>
+                                </label>
+                            </div>
+                            <div class="dropdown-divider"></div>
+                            <a href="user-profile-view.html" class="dropdown-item">
+                                <span class="dropdown-icon">📈</span> Статистика
+                            </a>
+                            <a href="friends.html" class="dropdown-item">
+                                <span class="dropdown-icon">👥</span> Друзья
+                            </a>
+                            <a href="profile.html" class="dropdown-item">
+                                <span class="dropdown-icon">✏️</span> Редактировать профиль
+                            </a>
+                            <a href="settings.html" class="dropdown-item">
+                                <span class="dropdown-icon">⚙️</span> Настройки
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a href="#" class="dropdown-item dropdown-logout" id="dropdownLogout">
+                                <span class="dropdown-icon">🚪</span> Выйти
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <div class="dashboard-layout">
+        <!-- Sidebar -->
+        <aside class="dashboard-sidebar">
+            <nav class="sidebar-nav">
+                <a href="profile.html" class="sidebar-item active">
+                    <span class="sidebar-icon">👤</span>
+                    <span class="sidebar-text">Профиль</span>
+                </a>
+                <a href="settings.html" class="sidebar-item">
+                    <span class="sidebar-icon">⚙️</span>
+                    <span class="sidebar-text">Настройки</span>
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="index.html" class="sidebar-item logout-btn">
+                    <span class="sidebar-icon">🚪</span>
+                    <span class="sidebar-text">Выйти</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="dashboard-main">
+            <div class="profile-edit-page">
+                <div class="profile-edit-header">
+                    <h1>Редактировать профиль</h1>
+                    <a href="dashboard.html" class="btn-secondary">Назад</a>
+                </div>
+
+                <!-- Card: Banner & Avatar -->
+                <div class="edit-card">
+                    <div class="profile-banner-edit">
+                        <div class="banner-preview" id="bannerPreview">
+                            <video class="banner-preview-video" id="bannerPreviewVideo" autoplay loop muted playsinline style="display:none;"></video>
+                            <div class="banner-overlay">
+                                <label for="bannerInput" class="banner-edit-btn">
+                                    📷 Изменить шапку
+                                </label>
+                            </div>
+                        </div>
+                        <input type="file" id="bannerInput" accept="image/*,video/mp4,video/webm" hidden>
+                        <div class="banner-url-input">
+                            <input type="url" id="bannerUrlInput" placeholder="Или вставьте ссылку на GIF / видео..." class="banner-url-field">
+                            <button type="button" class="btn-primary btn-small" id="bannerUrlApply">Применить</button>
+                        </div>
+                        <div class="banner-actions">
+                            <button type="button" class="btn-secondary btn-small" id="removeBanner">Сбросить шапку</button>
+                        </div>
+                    </div>
+
+                    <div class="profile-avatar-edit">
+                        <div class="avatar-preview-container">
+                            <img src="https://via.placeholder.com/120" alt="Avatar" class="avatar-preview" id="avatarPreview">
+                            <label for="avatarInput" class="avatar-edit-overlay">
+                                📷
+                            </label>
+                        </div>
+                        <input type="file" id="avatarInput" accept="image/*" hidden>
+                        <p class="edit-hint">Нажмите на аватар для изменения</p>
+                    </div>
+                </div>
+
+                <form id="profileForm" class="profile-edit-form">
+                    <!-- Card: Main Info -->
+                    <div class="edit-card">
+                        <h2 class="edit-card-title">Основная информация</h2>
+                        <div class="edit-card-body">
+                            <div class="form-group">
+                                <label for="nickname">Никнейм</label>
+                                <input type="text" id="nickname" placeholder="Ваш никнейм" maxlength="24" required>
+                                <span class="form-hint">Отображаемое имя. Максимум 24 символа</span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="userLogin">Логин</label>
+                                <div class="login-input-wrapper">
+                                    <span class="login-prefix">@</span>
+                                    <input type="text" id="userLogin" placeholder="username" maxlength="20">
+                                </div>
+                                <span class="form-hint">Уникальный идентификатор для поиска. Латиница, цифры и _ (3–20 символов)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card: About -->
+                    <div class="edit-card">
+                        <h2 class="edit-card-title">О себе</h2>
+                        <div class="edit-card-body">
+                            <div class="form-group">
+                                <label for="bio">Описание профиля</label>
+                                <textarea id="bio" placeholder="Расскажите о себе..." rows="3" maxlength="200"></textarea>
+                                <span class="form-hint"><span id="bioCounter">0</span>/200</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card: Hint -->
+                    <div class="edit-card edit-card-hint">
+                        <p class="edit-hint">Виджеты и расположение элементов профиля настраиваются на <a href="dashboard.html">главной странице</a> через кнопку &#9881;</p>
+                    </div>
+
+                    <div id="formMessage" class="form-message"></div>
+
+                    <div class="profile-edit-actions">
+                        <button type="submit" class="btn-primary btn-large">Сохранить изменения</button>
+                        <a href="dashboard.html" class="btn-secondary btn-large">Отмена</a>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
+
+    <script type="module" src="/src/profile.ts"></script>
+</body>
+</html>

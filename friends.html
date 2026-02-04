@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Друзья - Mesa</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body class="dashboard-body">
+    <!-- Header -->
+    <header class="header">
+        <div class="container-fluid">
+            <nav class="nav">
+                <a href="dashboard.html" class="logo">MESA</a>
+                <div class="nav-search">
+                    <input type="text" id="searchInput" placeholder="Поиск игроков, команд..." autocomplete="off">
+                    <div class="search-results" id="searchResults"></div>
+                </div>
+                <div class="nav-user">
+                    <div class="user-profile-header" id="userProfileToggle">
+                        <div class="avatar-wrapper">
+                            <img src="https://via.placeholder.com/40" alt="Avatar" class="user-avatar-small" id="headerAvatar">
+                            <span class="status-dot online" id="headerStatusDot"></span>
+                        </div>
+                        <div class="user-info-small">
+                            <span class="user-name-header" id="userNameHeader">Player</span>
+                            <span class="user-level-header">Уровень <span id="userLevelHeader">5</span></span>
+                        </div>
+                        <div class="profile-dropdown" id="profileDropdown">
+                            <div class="dropdown-header">
+                                <div class="dropdown-avatar-wrapper">
+                                    <img src="https://via.placeholder.com/48" alt="Avatar" class="dropdown-avatar" id="dropdownAvatar">
+                                    <span class="status-dot online dropdown-status" id="dropdownStatusDot"></span>
+                                </div>
+                                <div class="dropdown-user-info">
+                                    <span class="dropdown-name" id="dropdownName">Player</span>
+                                    <span class="dropdown-status-text" id="dropdownStatusText">В сети</span>
+                                </div>
+                            </div>
+                            <div class="dropdown-divider"></div>
+                            <a href="user-profile-view.html" class="dropdown-item">
+                                Статистика
+                            </a>
+                            <a href="friends.html" class="dropdown-item">
+                                Друзья
+                            </a>
+                            <a href="profile.html" class="dropdown-item">
+                                Редактировать профиль
+                            </a>
+                            <a href="settings.html" class="dropdown-item">
+                                Настройки
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a href="#" class="dropdown-item dropdown-logout" id="dropdownLogout">
+                                Выйти
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <div class="dashboard-layout">
+        <!-- Sidebar -->
+        <aside class="dashboard-sidebar">
+            <nav class="sidebar-nav">
+                <a href="friends.html" class="sidebar-item active">
+                    <svg class="sidebar-svg" viewBox="0 0 24 24" fill="currentColor"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+                    <span class="sidebar-text">Друзья</span>
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="index.html" class="sidebar-item logout-btn">
+                    <svg class="sidebar-svg" viewBox="0 0 24 24" fill="currentColor"><path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/></svg>
+                    <span class="sidebar-text">Выйти</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="dashboard-main">
+            <div class="friends-page">
+                <!-- Tabs -->
+                <div class="friends-tabs">
+                    <button class="friends-tab active" data-tab="friends">
+                        <span class="tab-text">ДРУЗЬЯ</span>
+                        <span class="tab-count" id="friendsCount">0</span>
+                    </button>
+                    <button class="friends-tab" data-tab="subscribers">
+                        <span class="tab-text">ПОДПИСЧИКИ</span>
+                        <span class="tab-count" id="subscribersCount">0</span>
+                    </button>
+                    <button class="friends-tab" data-tab="subscriptions">
+                        <span class="tab-text">ПОДПИСКИ</span>
+                        <span class="tab-count" id="subscriptionsCount">0</span>
+                    </button>
+                    <button class="friends-tab" data-tab="groups">
+                        <span class="tab-text">ГРУППЫ</span>
+                        <span class="tab-count" id="groupsCount">0</span>
+                    </button>
+                </div>
+
+                <!-- Tab Content -->
+                <div class="friends-content">
+                    <!-- Friends List -->
+                    <div class="friends-list" id="friendsList" data-tab-content="friends">
+                        <div class="friends-empty">
+                            <div class="empty-icon-box">
+                                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+                            </div>
+                            <p>У вас пока нет друзей</p>
+                            <span class="empty-hint">Найдите игроков через поиск и добавьте их в друзья</span>
+                        </div>
+                    </div>
+
+                    <!-- Subscribers List -->
+                    <div class="friends-list hidden" id="subscribersList" data-tab-content="subscribers">
+                        <div class="friends-empty">
+                            <div class="empty-icon-box">
+                                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg>
+                            </div>
+                            <p>У вас пока нет подписчиков</p>
+                            <span class="empty-hint">Когда кто-то подпишется на вас, они появятся здесь</span>
+                        </div>
+                    </div>
+
+                    <!-- Subscriptions List -->
+                    <div class="friends-list hidden" id="subscriptionsList" data-tab-content="subscriptions">
+                        <div class="friends-empty">
+                            <div class="empty-icon-box">
+                                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                            </div>
+                            <p>Вы пока ни на кого не подписаны</p>
+                            <span class="empty-hint">Подпишитесь на интересных игроков</span>
+                        </div>
+                    </div>
+
+                    <!-- Groups List -->
+                    <div class="friends-list hidden" id="groupsList" data-tab-content="groups">
+                        <div class="friends-empty">
+                            <div class="empty-icon-box">
+                                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12.75c1.63 0 3.07.39 4.24.9 1.08.48 1.76 1.56 1.76 2.73V18H6v-1.61c0-1.18.68-2.26 1.76-2.73 1.17-.52 2.61-.91 4.24-.91zM4 13c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm1.13 1.1c-.37-.06-.74-.1-1.13-.1-.99 0-1.93.21-2.78.58A2.01 2.01 0 000 16.43V18h4.5v-1.61c0-.83.23-1.61.63-2.29zM20 13c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm4 3.43c0-.81-.48-1.53-1.22-1.85A6.95 6.95 0 0020 14c-.39 0-.76.04-1.13.1.4.68.63 1.46.63 2.29V18H24v-1.57zM12 6c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3z"/></svg>
+                            </div>
+                            <p>Вы не состоите ни в одной группе</p>
+                            <span class="empty-hint">Группы появятся в будущих обновлениях</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script type="module" src="/src/friends.ts"></script>
+</body>
+</html>

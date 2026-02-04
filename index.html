@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>try{const t=JSON.parse(localStorage.getItem('mesaSettings')||'{}').theme;if(t&&t!=='default')document.documentElement.dataset.theme=t}catch(e){}</script>
+    <title>Mesa - Платформа для киберспортивных турниров</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <div class="logo">MESA</div>
+                <ul class="nav-menu">
+                    <li><a href="#" class="nav-link active">Главная</a></li>
+                    <li><a href="#tournaments" class="nav-link">Турниры</a></li>
+                    <li><a href="#matches" class="nav-link">Матчи</a></li>
+                    <li><a href="#rankings" class="nav-link">Рейтинг</a></li>
+                    <li><a href="#community" class="nav-link">Сообщество</a></li>
+                </ul>
+                <div class="nav-auth">
+                    <a href="login.html"><button class="btn-secondary">Войти</button></a>
+                    <a href="register.html"><button class="btn-primary">Регистрация</button></a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Командуй. Сражайся. Побеждай</h1>
+                <p class="hero-subtitle">Платформа для стратегических сражений в Warcraft III, Star Wars: Empire at War и Company of Heroes</p>
+                <div class="hero-buttons">
+                    <a href="register.html"><button class="btn-primary btn-large">Начать играть</button></a>
+                    <a href="register.html"><button class="btn-secondary btn-large">Создать турнир</button></a>
+                </div>
+            </div>
+            <div class="hero-stats">
+                <div class="stat-card">
+                    <div class="stat-number">15,847</div>
+                    <div class="stat-label">Активных игроков</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">342</div>
+                    <div class="stat-label">Турниров</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">8,521</div>
+                    <div class="stat-label">Матчей сегодня</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tournaments Section -->
+    <section id="tournaments" class="section tournaments">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Активные турниры</h2>
+                <div class="section-filters">
+                    <button class="filter-btn active">Все</button>
+                    <button class="filter-btn">Warcraft III</button>
+                    <button class="filter-btn">Star Wars: EaW</button>
+                    <button class="filter-btn">Company of Heroes</button>
+                </div>
+            </div>
+
+            <div class="tournaments-grid">
+                <!-- Tournament Card 1 -->
+                <div class="tournament-card">
+                    <div class="tournament-header">
+                        <span class="tournament-game">Warcraft III</span>
+                        <span class="tournament-status live">Live</span>
+                    </div>
+                    <h3 class="tournament-title">Еженедельный Warcraft III Cup</h3>
+                    <p class="tournament-description">1v1 Melee | Single Elimination | BO3</p>
+                    <div class="tournament-info">
+                        <div class="info-item">
+                            <span class="info-label">Призовой фонд</span>
+                            <span class="info-value">75,000₽</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Участников</span>
+                            <span class="info-value">24/32</span>
+                        </div>
+                    </div>
+                    <div class="tournament-footer">
+                        <span class="tournament-time">Начало через 2 часа</span>
+                        <button class="btn-primary btn-small">Присоединиться</button>
+                    </div>
+                </div>
+
+                <!-- Tournament Card 2 -->
+                <div class="tournament-card">
+                    <div class="tournament-header">
+                        <span class="tournament-game">Star Wars: EaW</span>
+                        <span class="tournament-status upcoming">Скоро</span>
+                    </div>
+                    <h3 class="tournament-title">Galactic Conquest Championship</h3>
+                    <p class="tournament-description">1v1 | Double Elimination | BO5</p>
+                    <div class="tournament-info">
+                        <div class="info-item">
+                            <span class="info-label">Призовой фонд</span>
+                            <span class="info-value">100,000₽</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Участников</span>
+                            <span class="info-value">12/16</span>
+                        </div>
+                    </div>
+                    <div class="tournament-footer">
+                        <span class="tournament-time">Начало завтра в 18:00</span>
+                        <button class="btn-primary btn-small">Присоединиться</button>
+                    </div>
+                </div>
+
+                <!-- Tournament Card 3 -->
+                <div class="tournament-card">
+                    <div class="tournament-header">
+                        <span class="tournament-game">Company of Heroes</span>
+                        <span class="tournament-status upcoming">Скоро</span>
+                    </div>
+                    <h3 class="tournament-title">CoH Masters Series</h3>
+                    <p class="tournament-description">1v1 | Swiss System | BO3</p>
+                    <div class="tournament-info">
+                        <div class="info-item">
+                            <span class="info-label">Призовой фонд</span>
+                            <span class="info-value">85,000₽</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Участников</span>
+                            <span class="info-value">8/16</span>
+                        </div>
+                    </div>
+                    <div class="tournament-footer">
+                        <span class="tournament-time">Начало 05.02 в 20:00</span>
+                        <button class="btn-primary btn-small">Присоединиться</button>
+                    </div>
+                </div>
+
+                <!-- Tournament Card 4 -->
+                <div class="tournament-card">
+                    <div class="tournament-header">
+                        <span class="tournament-game">Warcraft III</span>
+                        <span class="tournament-status upcoming">Скоро</span>
+                    </div>
+                    <h3 class="tournament-title">Custom Maps Tournament</h3>
+                    <p class="tournament-description">2v2 Custom | Single Elimination | BO1</p>
+                    <div class="tournament-info">
+                        <div class="info-item">
+                            <span class="info-label">Призовой фонд</span>
+                            <span class="info-value">50,000₽</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Участников</span>
+                            <span class="info-value">16/16</span>
+                        </div>
+                    </div>
+                    <div class="tournament-footer">
+                        <span class="tournament-time">Сегодня в 21:00</span>
+                        <button class="btn-secondary btn-small" disabled>Заполнен</button>
+                    </div>
+                </div>
+
+                <!-- Tournament Card 5 -->
+                <div class="tournament-card">
+                    <div class="tournament-header">
+                        <span class="tournament-game">Company of Heroes</span>
+                        <span class="tournament-status live">Live</span>
+                    </div>
+                    <h3 class="tournament-title">Weekend Warriors 2v2</h3>
+                    <p class="tournament-description">2v2 | Round Robin | BO3</p>
+                    <div class="tournament-info">
+                        <div class="info-item">
+                            <span class="info-label">Призовой фонд</span>
+                            <span class="info-value">120,000₽</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Участников</span>
+                            <span class="info-value">14/16</span>
+                        </div>
+                    </div>
+                    <div class="tournament-footer">
+                        <span class="tournament-time">Идёт регистрация</span>
+                        <button class="btn-primary btn-small">Присоединиться</button>
+                    </div>
+                </div>
+
+                <!-- Tournament Card 6 -->
+                <div class="tournament-card">
+                    <div class="tournament-header">
+                        <span class="tournament-game">Star Wars: EaW</span>
+                        <span class="tournament-status upcoming">Скоро</span>
+                    </div>
+                    <h3 class="tournament-title">Forces of Corruption League</h3>
+                    <p class="tournament-description">1v1 FoC | League | BO5</p>
+                    <div class="tournament-info">
+                        <div class="info-item">
+                            <span class="info-label">Призовой фонд</span>
+                            <span class="info-value">95,000₽</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Участников</span>
+                            <span class="info-value">6/12</span>
+                        </div>
+                    </div>
+                    <div class="tournament-footer">
+                        <span class="tournament-time">Начало 10.02 в 19:00</span>
+                        <button class="btn-primary btn-small">Присоединиться</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-footer">
+                <button class="btn-secondary">Показать больше турниров</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recent Matches Section -->
+    <section id="matches" class="section matches">
+        <div class="container">
+            <h2 class="section-title">Последние матчи</h2>
+
+            <div class="matches-list">
+                <!-- Match Item 1 -->
+                <div class="match-item">
+                    <div class="match-game">WC3</div>
+                    <div class="match-teams">
+                        <div class="team team-winner">
+                            <span class="team-name">Happy</span>
+                            <span class="team-score">2</span>
+                        </div>
+                        <span class="match-vs">VS</span>
+                        <div class="team">
+                            <span class="team-score">1</span>
+                            <span class="team-name">Lyn</span>
+                        </div>
+                    </div>
+                    <div class="match-info">
+                        <span class="match-tournament">Еженедельный Warcraft III Cup</span>
+                        <span class="match-time">15 минут назад</span>
+                    </div>
+                    <button class="btn-secondary btn-small">Подробнее</button>
+                </div>
+
+                <!-- Match Item 2 -->
+                <div class="match-item">
+                    <div class="match-game">EaW</div>
+                    <div class="match-teams">
+                        <div class="team team-winner">
+                            <span class="team-name">ImperialGuard</span>
+                            <span class="team-score">3</span>
+                        </div>
+                        <span class="match-vs">VS</span>
+                        <div class="team">
+                            <span class="team-score">1</span>
+                            <span class="team-name">RebelScum</span>
+                        </div>
+                    </div>
+                    <div class="match-info">
+                        <span class="match-tournament">Galactic Conquest Championship</span>
+                        <span class="match-time">1 час назад</span>
+                    </div>
+                    <button class="btn-secondary btn-small">Подробнее</button>
+                </div>
+
+                <!-- Match Item 3 -->
+                <div class="match-item">
+                    <div class="match-game">CoH</div>
+                    <div class="match-teams">
+                        <div class="team team-winner">
+                            <span class="team-name">VonIvan</span>
+                            <span class="team-score">2</span>
+                        </div>
+                        <span class="match-vs">VS</span>
+                        <div class="team">
+                            <span class="team-score">0</span>
+                            <span class="team-name">Luvnest</span>
+                        </div>
+                    </div>
+                    <div class="match-info">
+                        <span class="match-tournament">CoH Masters Series</span>
+                        <span class="match-time">2 часа назад</span>
+                    </div>
+                    <button class="btn-secondary btn-small">Подробнее</button>
+                </div>
+
+                <!-- Match Item 4 -->
+                <div class="match-item">
+                    <div class="match-game">WC3</div>
+                    <div class="match-teams">
+                        <div class="team team-winner">
+                            <span class="team-name">Grubby</span>
+                            <span class="team-score">2</span>
+                        </div>
+                        <span class="match-vs">VS</span>
+                        <div class="team">
+                            <span class="team-score">1</span>
+                            <span class="team-name">TH000</span>
+                        </div>
+                    </div>
+                    <div class="match-info">
+                        <span class="match-tournament">Custom Maps Tournament</span>
+                        <span class="match-time">3 часа назад</span>
+                    </div>
+                    <button class="btn-secondary btn-small">Подробнее</button>
+                </div>
+
+                <!-- Match Item 5 -->
+                <div class="match-item">
+                    <div class="match-game">CoH</div>
+                    <div class="match-teams">
+                        <div class="team team-winner">
+                            <span class="team-name">DevM & HelpingHans</span>
+                            <span class="team-score">2</span>
+                        </div>
+                        <span class="match-vs">VS</span>
+                        <div class="team">
+                            <span class="team-score">1</span>
+                            <span class="team-name">Stormjäger & Noggano</span>
+                        </div>
+                    </div>
+                    <div class="match-info">
+                        <span class="match-tournament">Weekend Warriors 2v2</span>
+                        <span class="match-time">4 часа назад</span>
+                    </div>
+                    <button class="btn-secondary btn-small">Подробнее</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3 class="footer-title">MESA</h3>
+                    <p class="footer-description">Платформа для киберспортивных соревнований и турниров</p>
+                </div>
+                <div class="footer-section">
+                    <h4 class="footer-heading">Платформа</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">О нас</a></li>
+                        <li><a href="#">Правила</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Поддержка</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4 class="footer-heading">Соревнования</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Турниры</a></li>
+                        <li><a href="#">Лиги</a></li>
+                        <li><a href="#">Рейтинг</a></li>
+                        <li><a href="#">Призы</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4 class="footer-heading">Сообщество</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Discord</a></li>
+                        <li><a href="#">VK</a></li>
+                        <li><a href="#">Telegram</a></li>
+                        <li><a href="#">YouTube</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 MESA. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module" src="/src/main.ts"></script>
+</body>
+</html>

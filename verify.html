@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>try{const t=JSON.parse(localStorage.getItem('mesaSettings')||'{}').theme;if(t&&t!=='default')document.documentElement.dataset.theme=t}catch(e){}</script>
+    <title>Подтверждение входа - Mesa</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="auth.css">
+    <style>
+        .verification-form {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .code-inputs {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            margin: 32px 0;
+        }
+
+        .code-input {
+            width: 50px;
+            height: 60px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: 700;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            background: rgba(15, 23, 42, 0.6);
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+        }
+
+        .code-input:focus {
+            outline: none;
+            border-color: var(--orange-primary);
+            box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.1);
+        }
+
+        .resend-code {
+            text-align: center;
+            margin-top: 24px;
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .resend-code button {
+            background: none;
+            border: none;
+            color: var(--orange-primary);
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: underline;
+        }
+
+        .resend-code button:hover {
+            color: var(--orange-light);
+        }
+
+        .verification-icon {
+            text-align: center;
+            font-size: 64px;
+            margin-bottom: 24px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="index.html" class="logo">MESA</a>
+                <ul class="nav-menu">
+                    <li><a href="index.html" class="nav-link">Главная</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Verification Section -->
+    <section class="auth-section">
+        <div class="auth-container" style="grid-template-columns: 1fr; max-width: 600px;">
+            <div class="auth-box verification-form">
+                <div class="verification-icon">📧</div>
+                <h1 class="auth-title">Подтверждение входа</h1>
+                <p class="auth-subtitle" id="emailDisplay">Введите код, отправленный на вашу почту</p>
+
+                <div id="formMessage" class="form-message"></div>
+
+                <!-- Verification Code Form -->
+                <form id="verifyForm" class="auth-form">
+                    <div class="code-inputs">
+                        <input type="text" class="code-input" maxlength="1" id="code1" autofocus>
+                        <input type="text" class="code-input" maxlength="1" id="code2">
+                        <input type="text" class="code-input" maxlength="1" id="code3">
+                        <input type="text" class="code-input" maxlength="1" id="code4">
+                        <input type="text" class="code-input" maxlength="1" id="code5">
+                        <input type="text" class="code-input" maxlength="1" id="code6">
+                    </div>
+
+                    <button type="submit" class="btn-primary btn-large btn-full">Подтвердить</button>
+                </form>
+
+                <div class="resend-code">
+                    <p>Не получили код? <button type="button" id="resendBtn">Отправить снова</button></p>
+                    <p style="margin-top: 16px;"><a href="login.html" style="color: var(--orange-primary);">Назад ко входу</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script type="module" src="/src/verify.ts"></script>
+</body>
+</html>

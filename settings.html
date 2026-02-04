@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>try{const t=JSON.parse(localStorage.getItem('mesaSettings')||'{}').theme;if(t&&t!=='default')document.documentElement.dataset.theme=t}catch(e){}</script>
+    <title>Настройки - Mesa</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="settings.css">
+</head>
+<body class="dashboard-body">
+    <!-- Header -->
+    <header class="header">
+        <div class="container-fluid">
+            <nav class="nav">
+                <a href="dashboard.html" class="logo">MESA</a>
+                <div class="nav-search">
+                    <input type="text" id="searchInput" placeholder="Поиск игроков, команд..." autocomplete="off">
+                    <div class="search-results" id="searchResults"></div>
+                </div>
+                <div class="nav-user">
+                    <div class="user-profile-header" id="userProfileToggle">
+                        <div class="avatar-wrapper">
+                            <img src="https://via.placeholder.com/40" alt="Avatar" class="user-avatar-small" id="headerAvatar">
+                            <span class="status-dot online" id="headerStatusDot"></span>
+                        </div>
+                        <div class="user-info-small">
+                            <span class="user-name-header" id="userNameHeader">Player</span>
+                            <span class="user-level-header">Уровень <span id="userLevelHeader">1</span></span>
+                        </div>
+                        <div class="profile-dropdown" id="profileDropdown">
+                            <div class="dropdown-header">
+                                <div class="dropdown-avatar-wrapper">
+                                    <img src="https://via.placeholder.com/48" alt="Avatar" class="dropdown-avatar" id="dropdownAvatar">
+                                    <span class="status-dot online" id="dropdownStatusDot"></span>
+                                </div>
+                                <div class="dropdown-user-info">
+                                    <span class="dropdown-user-name" id="dropdownUserName">Player</span>
+                                    <span class="dropdown-user-status" id="dropdownStatusText">В сети</span>
+                                </div>
+                            </div>
+                            <div class="dropdown-divider"></div>
+                            <div class="dropdown-item dropdown-status-toggle" id="onlineStatusToggle">
+                                <span class="dropdown-icon">🟢</span>
+                                <span>В сети</span>
+                                <label class="dropdown-toggle">
+                                    <input type="checkbox" id="onlineStatusCheckbox" checked>
+                                    <span class="toggle-slider-mini"></span>
+                                </label>
+                            </div>
+                            <div class="dropdown-divider"></div>
+                            <a href="user-profile-view.html" class="dropdown-item">
+                                <span class="dropdown-icon">📈</span> Статистика
+                            </a>
+                            <a href="friends.html" class="dropdown-item">
+                                <span class="dropdown-icon">👥</span> Друзья
+                            </a>
+                            <a href="profile.html" class="dropdown-item">
+                                <span class="dropdown-icon">✏️</span> Редактировать профиль
+                            </a>
+                            <a href="settings.html" class="dropdown-item">
+                                <span class="dropdown-icon">⚙️</span> Настройки
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a href="#" class="dropdown-item dropdown-logout" id="dropdownLogout">
+                                <span class="dropdown-icon">🚪</span> Выйти
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <div class="dashboard-layout">
+        <!-- Sidebar -->
+        <aside class="dashboard-sidebar">
+            <nav class="sidebar-nav">
+                <a href="profile.html" class="sidebar-item">
+                    <span class="sidebar-icon">👤</span>
+                    <span class="sidebar-text">Профиль</span>
+                </a>
+                <a href="settings.html" class="sidebar-item active">
+                    <span class="sidebar-icon">⚙️</span>
+                    <span class="sidebar-text">Настройки</span>
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="index.html" class="sidebar-item logout-btn">
+                    <span class="sidebar-icon">🚪</span>
+                    <span class="sidebar-text">Выйти</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="dashboard-main">
+            <div class="profile-edit-page">
+                <div class="profile-edit-header">
+                    <h1>Настройки</h1>
+                    <a href="dashboard.html" class="btn-secondary">Назад</a>
+                </div>
+
+                <!-- Appearance -->
+                <div class="settings-section">
+                    <h2 class="settings-section-title">Внешний вид</h2>
+                    <div class="settings-card">
+                        <div class="settings-row">
+                            <div class="settings-row-info">
+                                <span class="settings-row-label">Язык интерфейса</span>
+                                <span class="settings-row-desc">Выберите язык отображения</span>
+                            </div>
+                            <select id="settingLanguage" class="settings-select">
+                                <option value="ru" selected>Русский</option>
+                                <option value="en">English</option>
+                                <option value="kk">Қазақша</option>
+                            </select>
+                        </div>
+                        <div class="settings-divider"></div>
+                        <div class="settings-row">
+                            <div class="settings-row-info">
+                                <span class="settings-row-label">Тема</span>
+                                <span class="settings-row-desc">Внешний вид приложения</span>
+                            </div>
+                            <select id="settingTheme" class="settings-select">
+                                <option value="default" selected>Основная</option>
+                                <option value="light">Светлая</option>
+                                <option value="dark">Тёмная</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Notifications -->
+                <div class="settings-section">
+                    <h2 class="settings-section-title">Уведомления</h2>
+                    <div class="settings-card">
+                        <div class="settings-row">
+                            <div class="settings-row-info">
+                                <span class="settings-row-label">Уведомления о матчах</span>
+                                <span class="settings-row-desc">Получать уведомления о начале матча</span>
+                            </div>
+                            <label class="settings-toggle">
+                                <input type="checkbox" id="settingMatchNotif" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                        <div class="settings-divider"></div>
+                        <div class="settings-row">
+                            <div class="settings-row-info">
+                                <span class="settings-row-label">Уведомления о турнирах</span>
+                                <span class="settings-row-desc">Напоминания о предстоящих турнирах</span>
+                            </div>
+                            <label class="settings-toggle">
+                                <input type="checkbox" id="settingTournamentNotif" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                        <div class="settings-divider"></div>
+                        <div class="settings-row">
+                            <div class="settings-row-info">
+                                <span class="settings-row-label">Сообщения от друзей</span>
+                                <span class="settings-row-desc">Уведомления о новых сообщениях</span>
+                            </div>
+                            <label class="settings-toggle">
+                                <input type="checkbox" id="settingFriendMessages" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                        <div class="settings-divider"></div>
+                        <div class="settings-row">
+                            <div class="settings-row-info">
+                                <span class="settings-row-label">Звуковые уведомления</span>
+                                <span class="settings-row-desc">Звуковой сигнал при новом уведомлении</span>
+                            </div>
+                            <label class="settings-toggle">
+                                <input type="checkbox" id="settingSoundNotif">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Privacy -->
+                <div class="settings-section">
+                    <h2 class="settings-section-title">Приватность</h2>
+                    <div class="settings-card">
+                        <div class="settings-row">
+                            <div class="settings-row-info">
+                                <span class="settings-row-label">Показывать профиль</span>
+                                <span class="settings-row-desc">Кто может видеть ваш профиль</span>
+                            </div>
+                            <select id="settingProfileVisibility" class="settings-select">
+                                <option value="all" selected>Все</option>
+                                <option value="friends">Только друзья</option>
+                                <option value="nobody">Никто</option>
+                            </select>
+                        </div>
+                        <div class="settings-divider"></div>
+                        <div class="settings-row">
+                            <div class="settings-row-info">
+                                <span class="settings-row-label">Показывать статистику</span>
+                                <span class="settings-row-desc">Кто может видеть вашу статистику</span>
+                            </div>
+                            <select id="settingStatsVisibility" class="settings-select">
+                                <option value="all" selected>Все</option>
+                                <option value="friends">Только друзья</option>
+                                <option value="nobody">Никто</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Account -->
+                <div class="settings-section">
+                    <h2 class="settings-section-title">Аккаунт</h2>
+                    <div class="settings-card">
+                        <div class="settings-row">
+                            <div class="settings-row-info">
+                                <span class="settings-row-label">Email</span>
+                                <span class="settings-row-desc" id="settingEmail">user@example.com</span>
+                            </div>
+                            <button type="button" class="btn-secondary btn-small" id="changeEmailBtn">Изменить</button>
+                        </div>
+                        <div class="settings-divider"></div>
+                        <div class="settings-row">
+                            <div class="settings-row-info">
+                                <span class="settings-row-label">Пароль</span>
+                                <span class="settings-row-desc">Последнее изменение: неизвестно</span>
+                            </div>
+                            <button type="button" class="btn-secondary btn-small" id="changePasswordBtn">Изменить</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Danger Zone -->
+                <div class="settings-section">
+                    <h2 class="settings-section-title settings-danger-title">Опасная зона</h2>
+                    <div class="settings-card settings-card-danger">
+                        <div class="settings-row">
+                            <div class="settings-row-info">
+                                <span class="settings-row-label">Удалить аккаунт</span>
+                                <span class="settings-row-desc">Это действие нельзя отменить. Все данные будут удалены.</span>
+                            </div>
+                            <button type="button" class="btn-danger btn-small" id="deleteAccountBtn">Удалить</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="formMessage" class="form-message"></div>
+
+                <div class="profile-edit-actions">
+                    <button type="button" class="btn-primary btn-large" id="saveSettingsBtn">Сохранить настройки</button>
+                    <a href="dashboard.html" class="btn-secondary btn-large">Отмена</a>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script type="module" src="/src/settings.ts"></script>
+</body>
+</html>

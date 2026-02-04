@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>try{const t=JSON.parse(localStorage.getItem('mesaSettings')||'{}').theme;if(t&&t!=='default')document.documentElement.dataset.theme=t}catch(e){}</script>
+    <title>Вход - Mesa</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="auth.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="index.html" class="logo">MESA</a>
+                <ul class="nav-menu">
+                    <li><a href="index.html" class="nav-link">Главная</a></li>
+                    <li><a href="index.html#tournaments" class="nav-link">Турниры</a></li>
+                    <li><a href="index.html#matches" class="nav-link">Матчи</a></li>
+                </ul>
+                <div class="nav-auth">
+                    <a href="register.html"><button class="btn-primary">Регистрация</button></a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Login Section -->
+    <section class="auth-section">
+        <div class="auth-container">
+            <div class="auth-box">
+                <h1 class="auth-title">С возвращением!</h1>
+                <p class="auth-subtitle">Войдите в свой аккаунт, чтобы продолжить</p>
+
+                <div id="formMessage" class="form-message"></div>
+
+                <!-- Steam OAuth -->
+                <button class="btn-steam steam-btn">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+                        <circle cx="12" cy="12" r="3"/>
+                    </svg>
+                    Войти через Steam
+                </button>
+
+                <div class="auth-divider">
+                    <span>или</span>
+                </div>
+
+                <!-- Login Form -->
+                <form id="loginForm" class="auth-form">
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" placeholder="your@email.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Пароль</label>
+                        <input type="password" id="password" name="password" placeholder="Введите пароль" required>
+                    </div>
+
+                    <div class="form-checkbox">
+                        <input type="checkbox" id="remember" name="remember">
+                        <label for="remember">Запомнить меня</label>
+                    </div>
+
+                    <button type="submit" class="btn-primary btn-large btn-full">Войти</button>
+                </form>
+
+                <p class="auth-link">
+                    Нет аккаунта? <a href="register.html">Зарегистрироваться</a>
+                </p>
+
+                <p class="auth-link">
+                    <a href="#">Забыли пароль?</a>
+                </p>
+            </div>
+
+            <!-- Features Side Panel -->
+            <div class="auth-features">
+                <h2>Быстрый старт</h2>
+                <div class="feature-item">
+                    <div class="feature-icon">🎮</div>
+                    <div class="feature-text">
+                        <h3>Войдите в аккаунт</h3>
+                        <p>Используйте email или Steam для быстрого входа</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🔍</div>
+                    <div class="feature-text">
+                        <h3>Найдите турнир</h3>
+                        <p>Выберите игру и подходящий турнир из списка</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">⚔️</div>
+                    <div class="feature-text">
+                        <h3>Начните играть</h3>
+                        <p>Присоединяйтесь к матчам и зарабатывайте рейтинг</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🏅</div>
+                    <div class="feature-text">
+                        <h3>Побеждайте</h3>
+                        <p>Выигрывайте призы и поднимайтесь в рейтинге</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script type="module" src="/src/login.ts"></script>
+</body>
+</html>

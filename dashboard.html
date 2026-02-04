@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>try{const t=JSON.parse(localStorage.getItem('mesaSettings')||'{}').theme;if(t&&t!=='default')document.documentElement.dataset.theme=t}catch(e){}</script>
+    <title>Панель управления - Mesa</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body class="dashboard-body">
+    <!-- Header -->
+    <header class="header">
+        <div class="container-fluid">
+            <nav class="nav">
+                <a href="dashboard.html" class="logo">MESA</a>
+                <div class="nav-search">
+                    <input type="text" id="searchInput" placeholder="Поиск игроков, команд..." autocomplete="off">
+                    <div class="search-results" id="searchResults"></div>
+                </div>
+                <div class="nav-user">
+                    <div class="nav-notifications" id="navNotifications">
+                        <button class="notification-btn" id="notificationBtn">
+                            🔔
+                            <span class="notification-badge" id="notificationBadge" style="display:none;">0</span>
+                        </button>
+                        <div class="notification-dropdown" id="notificationDropdown">
+                            <div class="notification-dropdown-header">
+                                <span>Уведомления</span>
+                            </div>
+                            <div class="notification-dropdown-list" id="notificationList">
+                                <div class="notification-empty">Нет уведомлений</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="user-profile-header" id="userProfileToggle">
+                        <div class="avatar-wrapper">
+                            <img src="https://via.placeholder.com/40" alt="Avatar" class="user-avatar-small">
+                            <span class="status-dot online" id="headerStatusDot"></span>
+                        </div>
+                        <div class="user-info-small">
+                            <span class="user-name-header" id="userNameHeader">Player</span>
+                            <span class="user-level-header">Уровень <span id="userLevelHeader">5</span></span>
+                        </div>
+                        <div class="profile-dropdown" id="profileDropdown">
+                            <div class="dropdown-header">
+                                <div class="dropdown-avatar-wrapper">
+                                    <img src="https://via.placeholder.com/48" alt="Avatar" class="dropdown-avatar" id="dropdownAvatar">
+                                    <span class="status-dot online" id="dropdownStatusDot"></span>
+                                </div>
+                                <div class="dropdown-user-info">
+                                    <span class="dropdown-user-name" id="dropdownUserName">Player</span>
+                                    <span class="dropdown-user-status" id="dropdownStatusText">В сети</span>
+                                </div>
+                            </div>
+                            <div class="dropdown-divider"></div>
+                            <div class="dropdown-item dropdown-status-toggle" id="onlineStatusToggle">
+                                <span class="dropdown-icon">🟢</span>
+                                <span>В сети</span>
+                                <label class="dropdown-toggle">
+                                    <input type="checkbox" id="onlineStatusCheckbox" checked>
+                                    <span class="toggle-slider-mini"></span>
+                                </label>
+                            </div>
+                            <div class="dropdown-divider"></div>
+                            <a href="user-profile-view.html" class="dropdown-item">
+                                <span class="dropdown-icon">📈</span> Статистика
+                            </a>
+                            <a href="friends.html" class="dropdown-item">
+                                <span class="dropdown-icon">👥</span> Друзья
+                            </a>
+                            <a href="profile.html" class="dropdown-item">
+                                <span class="dropdown-icon">✏️</span> Редактировать профиль
+                            </a>
+                            <a href="settings.html" class="dropdown-item">
+                                <span class="dropdown-icon">⚙️</span> Настройки
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a href="#" class="dropdown-item dropdown-logout" id="dropdownLogout">
+                                <span class="dropdown-icon">🚪</span> Выйти
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <div class="dashboard-layout">
+        <!-- Sidebar -->
+        <aside class="dashboard-sidebar">
+            <nav class="sidebar-nav">
+                <a href="#" class="sidebar-item active">
+                    <span class="sidebar-icon">🏠</span>
+                    <span class="sidebar-text">Главная</span>
+                </a>
+                <a href="#" class="sidebar-item">
+                    <span class="sidebar-icon">👥</span>
+                    <span class="sidebar-text">Party Finder</span>
+                </a>
+                <a href="#" class="sidebar-item">
+                    <span class="sidebar-icon">⚔️</span>
+                    <span class="sidebar-text">Играть</span>
+                </a>
+                <a href="#" class="sidebar-item">
+                    <span class="sidebar-icon">📊</span>
+                    <span class="sidebar-text">Рейтинг</span>
+                </a>
+                <a href="user-profile-view.html" class="sidebar-item">
+                    <span class="sidebar-icon">📈</span>
+                    <span class="sidebar-text">Статистика</span>
+                </a>
+                <a href="#" class="sidebar-item">
+                    <span class="sidebar-icon">🎥</span>
+                    <span class="sidebar-text">Просмотр</span>
+                </a>
+                <a href="#" class="sidebar-item">
+                    <span class="sidebar-icon">🏆</span>
+                    <span class="sidebar-text">Турниры</span>
+                </a>
+                <a href="profile.html" class="sidebar-item">
+                    <span class="sidebar-icon">👤</span>
+                    <span class="sidebar-text">Профиль</span>
+                </a>
+                <a href="settings.html" class="sidebar-item">
+                    <span class="sidebar-icon">⚙️</span>
+                    <span class="sidebar-text">Настройки</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <a href="index.html" class="sidebar-item logout-btn">
+                    <span class="sidebar-icon">🚪</span>
+                    <span class="sidebar-text">Выйти</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="dashboard-main">
+            <!-- User Profile Banner (Canvas-based) -->
+            <section class="profile-banner" id="profileBanner">
+                <div class="profile-banner-bg" id="bannerBg"></div>
+
+                <!-- Canvas: all elements positioned absolutely via JS -->
+                <div class="profile-banner-canvas" id="bannerCanvas">
+
+                    <!-- Edit toggle (gear icon) -->
+                    <button class="banner-edit-toggle" id="bannerEditToggle" title="Редактировать профиль">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z"/>
+                        </svg>
+                    </button>
+
+                    <!-- Profile settings link -->
+                    <a href="profile.html" class="banner-profile-link" title="Настройки профиля">
+                        <svg width="18" height="18" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"/>
+                        </svg>
+                    </a>
+
+                    <!-- Draggable: Avatar -->
+                    <div class="banner-element" id="bannerEl-avatar" data-element-id="avatar">
+                        <div class="profile-avatar-container">
+                            <img src="https://via.placeholder.com/120" alt="Avatar" class="profile-avatar" id="profileAvatar" draggable="false">
+                            <div class="profile-level-badge">
+                                <span class="level-number" id="userLevel">5</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Draggable: Username -->
+                    <div class="banner-element" id="bannerEl-username" data-element-id="username">
+                        <h1 class="profile-name" id="userName">Player</h1>
+                    </div>
+
+                    <!-- Draggable: Subtitle / Bio -->
+                    <div class="banner-element" id="bannerEl-subtitle" data-element-id="subtitle">
+                        <p class="profile-subtitle" id="userSubtitle">Warcraft III Player</p>
+                    </div>
+
+                    <!-- Draggable: Stats block -->
+                    <div class="banner-element" id="bannerEl-stats" data-element-id="stats">
+                        <div class="profile-stats-mini">
+                            <div class="stat-mini">
+                                <span class="stat-value">1,847</span>
+                                <span class="stat-label">Рейтинг ELO</span>
+                            </div>
+                            <div class="stat-mini">
+                                <span class="stat-value">247</span>
+                                <span class="stat-label">Побед</span>
+                            </div>
+                            <div class="stat-mini">
+                                <span class="stat-value">68%</span>
+                                <span class="stat-label">Винрейт</span>
+                            </div>
+                            <div class="stat-mini-separator"></div>
+                            <div class="stat-mini">
+                                <span class="stat-value" id="statFriends">0</span>
+                                <span class="stat-label">Друзья</span>
+                            </div>
+                            <div class="stat-mini">
+                                <span class="stat-value" id="statSubscribers">0</span>
+                                <span class="stat-label">Подписчики</span>
+                            </div>
+                            <div class="stat-mini">
+                                <span class="stat-value" id="statGroups">0</span>
+                                <span class="stat-label">Группы</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Dynamic widget elements injected by banner-editor.ts -->
+                </div>
+
+                <!-- Edit Mode Toolbar (hidden by default) -->
+                <div class="banner-toolbar" id="bannerToolbar">
+                    <div class="toolbar-section">
+                        <span class="toolbar-label">Добавить:</span>
+                        <button type="button" class="toolbar-btn" id="toolbarAddText">
+                            <span>T</span> Текст
+                        </button>
+                        <button type="button" class="toolbar-btn" id="toolbarAddSticker">
+                            <span>😀</span> Стикер
+                        </button>
+                        <button type="button" class="toolbar-btn" id="toolbarAddGif">
+                            <span>🖼</span> GIF
+                        </button>
+                    </div>
+                    <!-- Resize controls (shown when sticker/gif widget selected) -->
+                    <div class="toolbar-section toolbar-resize" id="toolbarResize" style="display:none;">
+                        <span class="toolbar-label">Размер:</span>
+                        <button type="button" class="toolbar-btn toolbar-btn-icon" id="toolbarScaleDown" title="Уменьшить">−</button>
+                        <span class="toolbar-scale-value" id="toolbarScaleValue">100%</span>
+                        <button type="button" class="toolbar-btn toolbar-btn-icon" id="toolbarScaleUp" title="Увеличить">+</button>
+                        <span class="toolbar-separator"></span>
+                        <span class="toolbar-label">Ш:</span>
+                        <button type="button" class="toolbar-btn toolbar-btn-icon" id="toolbarStretchXDown" title="Уже">−</button>
+                        <span class="toolbar-scale-value" id="toolbarStretchXValue">100%</span>
+                        <button type="button" class="toolbar-btn toolbar-btn-icon" id="toolbarStretchXUp" title="Шире">+</button>
+                        <span class="toolbar-separator"></span>
+                        <span class="toolbar-label">В:</span>
+                        <button type="button" class="toolbar-btn toolbar-btn-icon" id="toolbarStretchYDown" title="Ниже">−</button>
+                        <span class="toolbar-scale-value" id="toolbarStretchYValue">100%</span>
+                        <button type="button" class="toolbar-btn toolbar-btn-icon" id="toolbarStretchYUp" title="Выше">+</button>
+                    </div>
+                    <!-- Text style controls (shown when username/subtitle selected) -->
+                    <div class="toolbar-section toolbar-text-style" id="toolbarTextStyle" style="display:none;">
+                        <span class="toolbar-label">Стиль:</span>
+                        <input type="color" id="toolbarTextColor" class="toolbar-color-picker" title="Цвет текста" value="#f97316">
+                        <select id="toolbarFontFamily" class="toolbar-select" title="Шрифт">
+                            <option value="">По умолчанию</option>
+                        </select>
+                        <button type="button" class="toolbar-btn toolbar-btn-icon" id="toolbarFontDown" title="Уменьшить шрифт">A−</button>
+                        <span class="toolbar-font-size-value" id="toolbarFontSizeValue">32px</span>
+                        <button type="button" class="toolbar-btn toolbar-btn-icon" id="toolbarFontUp" title="Увеличить шрифт">A+</button>
+                    </div>
+                    <div class="toolbar-section">
+                        <button type="button" class="toolbar-btn toolbar-btn-danger" id="toolbarDeleteSelected" disabled>
+                            🗑 Удалить
+                        </button>
+                    </div>
+                    <div class="toolbar-section toolbar-section-right">
+                        <button type="button" class="toolbar-btn toolbar-btn-secondary" id="toolbarReset">Сбросить</button>
+                        <button type="button" class="toolbar-btn toolbar-btn-primary" id="toolbarSave">Сохранить</button>
+                        <button type="button" class="toolbar-btn" id="toolbarCancel">Отмена</button>
+                    </div>
+                </div>
+
+                <!-- Sticker Picker Popover -->
+                <div class="banner-popover" id="bannerStickerPicker" style="display:none;">
+                    <div class="sticker-picker-grid" id="bannerStickerGrid"></div>
+                </div>
+
+                <!-- GIF URL Input Popover -->
+                <div class="banner-popover banner-input-popover" id="bannerGifInput" style="display:none;">
+                    <input type="url" placeholder="Вставьте ссылку на GIF..." id="bannerGifUrl">
+                    <button type="button" class="btn-primary btn-small" id="bannerGifAdd">Добавить</button>
+                </div>
+
+                <!-- Text Input Popover -->
+                <div class="banner-popover banner-input-popover" id="bannerTextInput" style="display:none;">
+                    <input type="text" placeholder="Введите текст..." maxlength="30" id="bannerTextValue">
+                    <button type="button" class="btn-primary btn-small" id="bannerTextAdd">Добавить</button>
+                </div>
+            </section>
+
+            <!-- Game Selection -->
+            <section class="game-selection">
+                <h2>Выберите игру</h2>
+                <div class="game-cards">
+                    <div class="game-card active">
+                        <div class="game-card-icon">⚔️</div>
+                        <h3>Warcraft III</h3>
+                        <p>ELO: 1,847</p>
+                    </div>
+                    <div class="game-card">
+                        <div class="game-card-icon">🚀</div>
+                        <h3>Star Wars: EaW</h3>
+                        <p>ELO: 1,523</p>
+                    </div>
+                    <div class="game-card">
+                        <div class="game-card-icon">🎖️</div>
+                        <h3>Company of Heroes</h3>
+                        <p>ELO: 1,692</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Main Dashboard Grid -->
+            <div class="dashboard-grid">
+                <!-- Play Section -->
+                <section class="dashboard-card play-card">
+                    <div class="card-header">
+                        <h2>Начать игру</h2>
+                    </div>
+                    <div class="play-options">
+                        <button class="play-option-btn matchmaking">
+                            <div class="play-icon">🎯</div>
+                            <div class="play-info">
+                                <h3>Поиск игры</h3>
+                                <p>Найти соперника по рейтингу</p>
+                            </div>
+                        </button>
+                        <button class="play-option-btn tournament">
+                            <div class="play-icon">🏆</div>
+                            <div class="play-info">
+                                <h3>Турниры</h3>
+                                <p>Участвовать в турнирах</p>
+                            </div>
+                        </button>
+                        <button class="play-option-btn custom">
+                            <div class="play-icon">⚙️</div>
+                            <div class="play-info">
+                                <h3>Создать лобби</h3>
+                                <p>Пригласить друзей</p>
+                            </div>
+                        </button>
+                    </div>
+                </section>
+
+                <!-- Recent Matches -->
+                <section class="dashboard-card">
+                    <div class="card-header">
+                        <h2>Последние матчи</h2>
+                        <a href="#" class="card-link">Все матчи →</a>
+                    </div>
+                    <div class="recent-matches">
+                        <div class="match-row win">
+                            <div class="match-result">ПОБЕДА</div>
+                            <div class="match-details">
+                                <span class="match-game">WC3 • 1v1</span>
+                                <span class="match-opponent">vs Grubby</span>
+                            </div>
+                            <div class="match-elo">+24</div>
+                        </div>
+                        <div class="match-row win">
+                            <div class="match-result">ПОБЕДА</div>
+                            <div class="match-details">
+                                <span class="match-game">WC3 • 1v1</span>
+                                <span class="match-opponent">vs Happy</span>
+                            </div>
+                            <div class="match-elo">+28</div>
+                        </div>
+                        <div class="match-row loss">
+                            <div class="match-result">ПОРАЖЕНИЕ</div>
+                            <div class="match-details">
+                                <span class="match-game">WC3 • 1v1</span>
+                                <span class="match-opponent">vs Lyn</span>
+                            </div>
+                            <div class="match-elo">-18</div>
+                        </div>
+                        <div class="match-row win">
+                            <div class="match-result">ПОБЕДА</div>
+                            <div class="match-details">
+                                <span class="match-game">WC3 • 2v2</span>
+                                <span class="match-opponent">vs Team Alpha</span>
+                            </div>
+                            <div class="match-elo">+31</div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Tournaments -->
+                <section class="dashboard-card">
+                    <div class="card-header">
+                        <h2>Активные турниры</h2>
+                        <a href="#" class="card-link">Все турниры →</a>
+                    </div>
+                    <div class="tournament-list">
+                        <div class="tournament-item">
+                            <div class="tournament-item-info">
+                                <h4>Еженедельный Warcraft III Cup</h4>
+                                <p>Начало через 2 часа • 24/32 участников</p>
+                            </div>
+                            <button class="btn-primary btn-small">Вступить</button>
+                        </div>
+                        <div class="tournament-item">
+                            <div class="tournament-item-info">
+                                <h4>Custom Maps Tournament</h4>
+                                <p>Сегодня в 21:00 • 16/16 участников</p>
+                            </div>
+                            <button class="btn-secondary btn-small" disabled>Заполнен</button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Friends/Party -->
+                <section class="dashboard-card">
+                    <div class="card-header">
+                        <h2>Друзья онлайн</h2>
+                        <span class="friends-count">12 онлайн</span>
+                    </div>
+                    <div class="friends-list">
+                        <div class="friend-item">
+                            <img src="https://via.placeholder.com/40" alt="Friend" class="friend-avatar">
+                            <div class="friend-info">
+                                <span class="friend-name">TH000</span>
+                                <span class="friend-status online">В игре • WC3</span>
+                            </div>
+                            <button class="btn-icon">💬</button>
+                        </div>
+                        <div class="friend-item">
+                            <img src="https://via.placeholder.com/40" alt="Friend" class="friend-avatar">
+                            <div class="friend-info">
+                                <span class="friend-name">Moon</span>
+                                <span class="friend-status online">Онлайн</span>
+                            </div>
+                            <button class="btn-icon">💬</button>
+                        </div>
+                        <div class="friend-item">
+                            <img src="https://via.placeholder.com/40" alt="Friend" class="friend-avatar">
+                            <div class="friend-info">
+                                <span class="friend-name">Grubby</span>
+                                <span class="friend-status online">В турнире</span>
+                            </div>
+                            <button class="btn-icon">💬</button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Stats Overview -->
+                <section class="dashboard-card stats-card">
+                    <div class="card-header">
+                        <h2>Статистика за неделю</h2>
+                    </div>
+                    <div class="stats-grid">
+                        <div class="stat-box">
+                            <div class="stat-icon">🎮</div>
+                            <div class="stat-data">
+                                <span class="stat-number">28</span>
+                                <span class="stat-text">Игр сыграно</span>
+                            </div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-icon">🏆</div>
+                            <div class="stat-data">
+                                <span class="stat-number">19</span>
+                                <span class="stat-text">Побед</span>
+                            </div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-icon">📈</div>
+                            <div class="stat-data">
+                                <span class="stat-number">+142</span>
+                                <span class="stat-text">ELO набрано</span>
+                            </div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-icon">⏱️</div>
+                            <div class="stat-data">
+                                <span class="stat-number">24ч</span>
+                                <span class="stat-text">Время в игре</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script type="module" src="/src/dashboard.ts"></script>
+</body>
+</html>
