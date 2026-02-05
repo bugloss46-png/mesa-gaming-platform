@@ -456,23 +456,31 @@ function loadGamesPlayedList(user: User): void {
 }
 
 function setupGameSelector(user: User): void {
+  const btn = document.getElementById('gameSelectorBtn');
   const dropdown = document.getElementById('gameSelectorDropdown');
-  if (!dropdown) return;
+  if (!dropdown || !btn) return;
 
+  // Toggle dropdown on button click
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    dropdown.classList.toggle('show');
+  });
+
+  // Close dropdown when clicking outside
+  document.addEventListener('click', () => {
+    dropdown.classList.remove('show');
+  });
+
+  // Handle option selection
   dropdown.querySelectorAll('.game-option').forEach(option => {
     option.addEventListener('click', () => {
       const gameId = (option as HTMLElement).dataset.game;
-      if (gameId) selectGame(gameId, user);
+      if (gameId) {
+        selectGame(gameId, user);
+        dropdown.classList.remove('show');
+      }
     });
   });
-
-  // Setup account header button
-  const accountHeaderBtn = document.getElementById('accountHeaderBtn');
-  if (accountHeaderBtn) {
-    accountHeaderBtn.addEventListener('click', () => {
-      selectGame('account', user);
-    });
-  }
 }
 
 function selectGame(gameId: string, user: User): void {

@@ -648,22 +648,7 @@
 }
 
 .medal-glow {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 200px;
-    height: 220px;
-    background: radial-gradient(ellipse at 45% 48%,
-        rgba(212, 168, 84, 0.45) 0%,
-        rgba(184, 134, 47, 0.35) 25%,
-        rgba(139, 101, 48, 0.25) 45%,
-        rgba(139, 101, 48, 0.15) 60%,
-        transparent 75%);
-    border-radius: 48% 52% 53% 47% / 45% 49% 51% 55%;
-    z-index: 1;
-    animation: glowPulse 4s ease-in-out infinite;
-    filter: blur(15px);
+    display: none;
 }
 
 @keyframes glowPulse {
@@ -678,22 +663,7 @@
 }
 
 .medal-glow-pulse {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 240px;
-    height: 260px;
-    background: radial-gradient(ellipse at 52% 46%,
-        rgba(212, 168, 84, 0.3) 0%,
-        rgba(184, 134, 47, 0.2) 35%,
-        rgba(139, 101, 48, 0.1) 55%,
-        rgba(139, 101, 48, 0.05) 70%,
-        transparent 80%);
-    border-radius: 51% 49% 47% 53% / 52% 48% 52% 48%;
-    z-index: 0;
-    animation: medalPulse 3.5s ease-in-out infinite;
-    filter: blur(20px);
+    display: none;
 }
 
 @keyframes medalPulse {
@@ -708,56 +678,7 @@
 }
 
 .medal-rays {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 260px;
-    height: 280px;
-    background: conic-gradient(
-        from 0deg,
-        transparent 0deg,
-        rgba(212, 168, 84, 0.35) 10deg,
-        transparent 20deg,
-        transparent 30deg,
-        rgba(212, 168, 84, 0.35) 40deg,
-        transparent 50deg,
-        transparent 60deg,
-        rgba(212, 168, 84, 0.35) 70deg,
-        transparent 80deg,
-        transparent 90deg,
-        rgba(212, 168, 84, 0.35) 100deg,
-        transparent 110deg,
-        transparent 120deg,
-        rgba(212, 168, 84, 0.35) 130deg,
-        transparent 140deg,
-        transparent 150deg,
-        rgba(212, 168, 84, 0.35) 160deg,
-        transparent 170deg,
-        transparent 180deg,
-        rgba(212, 168, 84, 0.35) 190deg,
-        transparent 200deg,
-        transparent 210deg,
-        rgba(212, 168, 84, 0.35) 220deg,
-        transparent 230deg,
-        transparent 240deg,
-        rgba(212, 168, 84, 0.35) 250deg,
-        transparent 260deg,
-        transparent 270deg,
-        rgba(212, 168, 84, 0.35) 280deg,
-        transparent 290deg,
-        transparent 300deg,
-        rgba(212, 168, 84, 0.35) 310deg,
-        transparent 320deg,
-        transparent 330deg,
-        rgba(212, 168, 84, 0.35) 340deg,
-        transparent 350deg,
-        transparent 360deg
-    );
-    border-radius: 50%;
-    z-index: 0;
-    animation: pulseRays 3s ease-in-out infinite;
-    opacity: 0.6;
+    display: none;
 }
 
 @keyframes pulseRays {
@@ -770,22 +691,7 @@
 }
 
 .medal-bottom-light {
-    position: absolute;
-    bottom: -35px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 160px;
-    height: 80px;
-    background: radial-gradient(ellipse at 48% 20%,
-        rgba(212, 168, 84, 0.5) 0%,
-        rgba(184, 134, 47, 0.35) 35%,
-        rgba(139, 101, 48, 0.2) 55%,
-        rgba(139, 101, 48, 0.1) 70%,
-        transparent 85%);
-    filter: blur(28px);
-    z-index: 1;
-    animation: bottomLightPulse 3s ease-in-out infinite;
-    border-radius: 50% 50% 48% 52% / 55% 55% 45% 45%;
+    display: none;
 }
 
 @keyframes bottomLightPulse {
