@@ -483,6 +483,122 @@ function setupGameSelector(user: User): void {
   });
 }
 
+// ==================== RATING CHART ====================
+
+interface ChartPoint {
+  match: number;
+  rating: number;
+  result: MatchResult;
+}
+
+function generateRatingChart(currentElo: number, matches: MockMatch[]): ChartPoint[] {
+  const points: ChartPoint[] = [];
+  let rating = currentElo;
+
+  // Идём в обратном порядке, вычитая изменения рейтинга
+  for (let i = matches.length - 1; i >= 0; i--) {
+    points.unshift({
+      match: i + 1,
+      rating: rating,
+      result: matches[i].result
+    });
+    rating -= matches[i].eloChange;
+  }
+
+  return points;
+}
+
+function drawRatingChart(data: ChartPoint[]): void {
+  const canvas = document.getElementById('ratingChart') as HTMLCanvasElement;
+  if (!canvas) return;
+
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return;
+
+  const width = canvas.width;
+  const height = canvas.height;
+  const padding = 40;
+  const chartWidth = width - padding * 2;
+  const chartHeight = height - padding * 2;
+
+  // Очищаем canvas
+  ctx.clearRect(0, 0, width, height);
+
+  // Находим min и max рейтинга для масштабирования
+  const ratings = data.map(d => d.rating);
+  const minRating = Math.min(...ratings) - 50;
+  const maxRating = Math.max(...ratings) + 50;
+  const ratingRange = maxRating - minRating;
+
+  // Функция для преобразования координат
+  const getX = (index: number) => padding + (index / (data.length - 1)) * chartWidth;
+  const getY = (rating: number) => padding + chartHeight - ((rating - minRating) / ratingRange) * chartHeight;
+
+  // Рисуем сетку
+  ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
+  ctx.lineWidth = 1;
+  for (let i = 0; i <= 5; i++) {
+    const y = padding + (i / 5) * chartHeight;
+    ctx.beginPath();
+    ctx.moveTo(padding, y);
+    ctx.lineTo(width - padding, y);
+    ctx.stroke();
+
+    // Подписи рейтинга
+    const rating = Math.round(maxRating - (i / 5) * ratingRange);
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+    ctx.font = '12px Inter, sans-serif';
+    ctx.textAlign = 'right';
+    ctx.fillText(rating.toString(), padding - 10, y + 4);
+  }
+
+  // Рисуем линию графика
+  ctx.strokeStyle = '#f97316';
+  ctx.lineWidth = 3;
+  ctx.beginPath();
+  data.forEach((point, index) => {
+    const x = getX(index);
+    const y = getY(point.rating);
+    if (index === 0) {
+      ctx.moveTo(x, y);
+    } else {
+      ctx.lineTo(x, y);
+    }
+  });
+  ctx.stroke();
+
+  // Рисуем точки
+  data.forEach((point, index) => {
+    const x = getX(index);
+    const y = getY(point.rating);
+
+    // Точка
+    ctx.beginPath();
+    ctx.arc(x, y, 6, 0, Math.PI * 2);
+    ctx.fillStyle = point.result === 'win' ? '#22c55e' : '#ef4444';
+    ctx.fill();
+    ctx.strokeStyle = '#1e293b';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+
+    // Подпись номера матча
+    if (index % 2 === 0) {
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+      ctx.font = '11px Inter, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText(`${point.match}`, x, height - padding + 20);
+    }
+  });
+
+  // Заголовок оси X
+  ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+  ctx.font = '12px Inter, sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('Номер матча', width / 2, height - 5);
+}
+
+// ==================== GAME SELECTOR ====================
+
 function selectGame(gameId: string, user: User): void {
   const selectorText = document.getElementById('gameSelectorText');
   const accountStats = document.getElementById('statsAccount');
@@ -528,11 +644,31 @@ function loadGameStats(gameId: string, user: User): void {
   const winRate = games > 0 ? Math.round((wins / games) * 100) : 0;
   const elo = user.elo + Math.floor(Math.random() * 200 - 100);
 
+  // Определяем ранг по ELO
+  let rank = { name: 'Бронза', icon: '🥉', color: '#cd7f32' };
+  if (elo >= 2000) rank = { name: 'Платина', icon: '💎', color: '#0ea5e9' };
+  else if (elo >= 1500) rank = { name: 'Золото', icon: '🥇', color: '#ffd700' };
+  else if (elo >= 1200) rank = { name: 'Серебро', icon: '🥈', color: '#c0c0c0' };
+
+  // Моковые данные часов игры
+  const hoursToday = Math.floor(Math.random() * 5) + 1;
+  const hoursWeek = hoursToday * 4 + Math.floor(Math.random() * 10);
+  const hoursMonth = hoursWeek * 3 + Math.floor(Math.random() * 20);
+
+  // Генерируем данные для графика (последние 10 матчей)
+  const matchHistory = generateMockMatchHistory(user).slice(0, 10).reverse();
+  const chartData = generateRatingChart(elo, matchHistory);
+
+  // Последние 5 матчей для отображения
+  const recentMatches = matchHistory.slice(-5).reverse();
+
   gameStats.innerHTML = `
     <div class="game-stats-header">
       <div class="game-stats-icon">${game.icon}</div>
       <span class="game-stats-name">${game.name}</span>
     </div>
+
+    <!-- Основная статистика -->
     <div class="game-stats-grid">
       <div class="game-stat-card elo">
         <div class="game-stat-value">${elo.toLocaleString()}</div>
@@ -550,11 +686,75 @@ function loadGameStats(gameId: string, user: User): void {
         <div class="game-stat-value">${winRate}%</div>
         <div class="game-stat-label">Винрейт</div>
       </div>
+      <div class="game-stat-card rank">
+        <div class="game-stat-value">${rank.icon} ${rank.name}</div>
+        <div class="game-stat-label">Ранг</div>
+      </div>
     </div>
+
+    <!-- Время игры -->
+    <div class="game-time-stats">
+      <h3 class="game-section-title">Время в игре</h3>
+      <div class="game-time-grid">
+        <div class="game-time-card">
+          <div class="game-time-value">${hoursToday}ч</div>
+          <div class="game-time-label">Сегодня</div>
+        </div>
+        <div class="game-time-card">
+          <div class="game-time-value">${hoursWeek}ч</div>
+          <div class="game-time-label">Неделя</div>
+        </div>
+        <div class="game-time-card">
+          <div class="game-time-value">${hoursMonth}ч</div>
+          <div class="game-time-label">Месяц</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- График рейтинга -->
+    <div class="rating-chart-section">
+      <h3 class="game-section-title">График рейтинга</h3>
+      <div class="rating-chart">
+        <canvas id="ratingChart" width="800" height="300"></canvas>
+      </div>
+    </div>
+
+    <!-- История последних матчей -->
+    <div class="recent-matches-section">
+      <div class="recent-matches-header">
+        <h3 class="game-section-title">Последние матчи</h3>
+        <button class="all-matches-btn" onclick="alert('Открытие полной истории матчей - в разработке')">
+          Все матчи →
+        </button>
+      </div>
+      <div class="recent-matches-list">
+        ${recentMatches.map(match => `
+          <div class="recent-match-item ${match.result}">
+            <div class="recent-match-result">
+              ${match.result === 'win' ? 'ПОБЕДА' : 'ПОРАЖЕНИЕ'}
+            </div>
+            <div class="recent-match-info">
+              <span class="recent-match-opponent">vs ${match.opponent}</span>
+              <span class="recent-match-score">${match.score}</span>
+            </div>
+            <div class="recent-match-meta">
+              <span class="recent-match-date">${match.date}</span>
+            </div>
+            <div class="recent-match-elo ${match.eloChange > 0 ? 'positive' : 'negative'}">
+              ${match.eloChange > 0 ? '+' : ''}${match.eloChange}
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+
     <button class="back-to-account-btn" onclick="document.querySelector('.game-option[data-game=account]')?.click()">
       ← Назад к аккаунту
     </button>
   `;
+
+  // Рисуем график после того как DOM обновлён
+  setTimeout(() => drawRatingChart(chartData), 0);
 }
 
 // ==================== BIO ====================

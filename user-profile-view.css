@@ -1290,6 +1290,11 @@
     border-top: 3px solid #3b82f6;
 }
 
+.game-stat-card.rank {
+    border-top: 3px solid #d4a854;
+    background: linear-gradient(135deg, rgba(212, 168, 84, 0.1) 0%, rgba(212, 168, 84, 0.05) 100%);
+}
+
 .game-stat-value {
     font-size: 32px;
     font-weight: 900;
@@ -1302,6 +1307,190 @@
     color: var(--text-muted);
     text-transform: uppercase;
     letter-spacing: 0.5px;
+}
+
+/* Время в игре */
+.game-time-stats {
+    margin: 32px 0;
+}
+
+.game-section-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 16px;
+}
+
+.game-time-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+
+.game-time-card {
+    padding: 20px;
+    background: linear-gradient(135deg, rgba(30, 30, 35, 0.95) 0%, rgba(20, 20, 25, 0.98) 100%);
+    border: 1px solid rgba(60, 60, 70, 0.4);
+    border-radius: 10px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.game-time-card:hover {
+    border-color: rgba(249, 115, 22, 0.6);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(249, 115, 22, 0.15);
+}
+
+.game-time-value {
+    font-size: 28px;
+    font-weight: 900;
+    color: #f97316;
+    margin-bottom: 8px;
+}
+
+.game-time-label {
+    font-size: 13px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* График рейтинга */
+.rating-chart-section {
+    margin: 32px 0;
+}
+
+.rating-chart {
+    background: linear-gradient(135deg, rgba(30, 30, 35, 0.95) 0%, rgba(20, 20, 25, 0.98) 100%);
+    border: 1px solid rgba(60, 60, 70, 0.4);
+    border-radius: 12px;
+    padding: 24px;
+    overflow-x: auto;
+}
+
+#ratingChart {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+/* История последних матчей */
+.recent-matches-section {
+    margin: 32px 0;
+}
+
+.recent-matches-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.all-matches-btn {
+    padding: 8px 16px;
+    background: transparent;
+    border: 1px solid rgba(249, 115, 22, 0.4);
+    border-radius: 8px;
+    color: #f97316;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.all-matches-btn:hover {
+    background: rgba(249, 115, 22, 0.1);
+    border-color: #f97316;
+}
+
+.recent-matches-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.recent-match-item {
+    display: grid;
+    grid-template-columns: 100px 1fr auto auto;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 20px;
+    background: linear-gradient(135deg, rgba(30, 30, 35, 0.95) 0%, rgba(20, 20, 25, 0.98) 100%);
+    border: 1px solid rgba(60, 60, 70, 0.4);
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.recent-match-item:hover {
+    transform: translateX(4px);
+    border-color: rgba(249, 115, 22, 0.4);
+}
+
+.recent-match-item.win {
+    border-left: 3px solid #22c55e;
+}
+
+.recent-match-item.loss {
+    border-left: 3px solid #ef4444;
+}
+
+.recent-match-result {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.recent-match-item.win .recent-match-result {
+    color: #22c55e;
+}
+
+.recent-match-item.loss .recent-match-result {
+    color: #ef4444;
+}
+
+.recent-match-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.recent-match-opponent {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.recent-match-score {
+    font-size: 13px;
+    color: var(--text-muted);
+}
+
+.recent-match-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.recent-match-date {
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+.recent-match-elo {
+    font-size: 16px;
+    font-weight: 700;
+    min-width: 60px;
+    text-align: right;
+}
+
+.recent-match-elo.positive {
+    color: #22c55e;
+}
+
+.recent-match-elo.negative {
+    color: #ef4444;
 }
 
 .back-to-account-btn {
