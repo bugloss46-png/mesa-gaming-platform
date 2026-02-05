@@ -1329,6 +1329,51 @@ function applyTheme(): void {
   }
 }
 
+// ==================== MEDAL NAVIGATION ====================
+
+function setupMedalNavigation(): void {
+  const medals = document.querySelectorAll<HTMLElement>('.medal-3d');
+  const leftArrow = document.getElementById('medalNavLeft');
+  const rightArrow = document.getElementById('medalNavRight');
+  const medalTitle = document.querySelector('.medal-showcase-title');
+  const medalSubtitle = document.querySelector('.medal-showcase-subtitle');
+
+  if (!medals.length || !leftArrow || !rightArrow) return;
+
+  let currentIndex = 0;
+
+  const medalData = [
+    { name: 'Бронзовый Ранг', subtitle: 'Уровень 1' },
+    { name: 'Серебряный Ранг', subtitle: 'Уровень 2' }
+  ];
+
+  const updateMedal = (index: number) => {
+    medals.forEach((medal, i) => {
+      if (i === index) {
+        medal.classList.add('active');
+      } else {
+        medal.classList.remove('active');
+      }
+    });
+
+    if (medalTitle) medalTitle.textContent = medalData[index].name;
+    if (medalSubtitle) medalSubtitle.textContent = medalData[index].subtitle;
+  };
+
+  leftArrow.addEventListener('click', () => {
+    currentIndex = (currentIndex - 1 + medals.length) % medals.length;
+    updateMedal(currentIndex);
+  });
+
+  rightArrow.addEventListener('click', () => {
+    currentIndex = (currentIndex + 1) % medals.length;
+    updateMedal(currentIndex);
+  });
+
+  // Initialize first medal as active
+  updateMedal(0);
+}
+
 // ==================== INIT ====================
 
 function init(): void {
@@ -1342,6 +1387,7 @@ function init(): void {
   setupProfileDropdown(currentUser);
   setupSearch(currentUser);
   setupNotifications(currentUser);
+  setupMedalNavigation();
 
   // Determine which profile to show
   const params = new URLSearchParams(window.location.search);

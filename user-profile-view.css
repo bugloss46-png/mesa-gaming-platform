@@ -333,6 +333,49 @@
     flex-shrink: 0;
 }
 
+/* Medal Navigation Arrows */
+.medal-nav-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 20;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(249, 115, 22, 0.2) 0%, rgba(249, 115, 22, 0.1) 100%);
+    border: 1px solid rgba(249, 115, 22, 0.4);
+    color: #f97316;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.medal-nav-arrow:hover {
+    background: linear-gradient(135deg, rgba(249, 115, 22, 0.3) 0%, rgba(249, 115, 22, 0.2) 100%);
+    border-color: rgba(249, 115, 22, 0.6);
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 0 20px rgba(249, 115, 22, 0.3);
+}
+
+.medal-nav-arrow:active {
+    transform: translateY(-50%) scale(0.95);
+}
+
+.medal-nav-arrow svg {
+    width: 24px;
+    height: 24px;
+}
+
+.medal-nav-left {
+    left: -60px;
+}
+
+.medal-nav-right {
+    right: -60px;
+}
 
 .medal-showcase-info {
     display: flex;
@@ -430,13 +473,24 @@
 
 /* 3D Medal Container - Serious Style */
 .medal-3d {
-    position: relative;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     width: 300px;
     height: 300px;
     z-index: 3;
-    animation: medalFloat 5s ease-in-out infinite;
     filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.5));
     transform-style: preserve-3d;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+.medal-3d.active {
+    opacity: 1;
+    visibility: visible;
+    animation: medalFloat 5s ease-in-out infinite;
 }
 
 .medal-svg {
