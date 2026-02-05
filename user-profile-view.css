@@ -325,15 +325,19 @@
 
 .medal-showcase-content {
     position: relative;
-    width: 550px;
-    height: 450px;
+    width: 250px;
+    height: 250px;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
 }
 
-/* Medal Navigation Arrows */
+/* Medal Navigation Arrows - positioned at showcase edges */
+.medal-showcase {
+    position: relative;
+}
+
 .medal-nav-arrow {
     position: absolute;
     top: 50%;
@@ -370,11 +374,11 @@
 }
 
 .medal-nav-left {
-    left: -20px;
+    left: 32px;
 }
 
 .medal-nav-right {
-    right: -20px;
+    right: 32px;
 }
 
 .medal-showcase-info {
@@ -473,21 +477,81 @@
 
 /* 3D Medal Container - Serious Style */
 .medal-3d {
-    position: relative;
-    width: 450px;
-    height: 450px;
+    position: absolute;
+    width: 250px;
+    height: 250px;
     z-index: 3;
     filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.5));
     transform-style: preserve-3d;
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.4s ease, visibility 0.4s ease;
+    transition: none;
 }
 
 .medal-3d.active {
     opacity: 1;
     visibility: visible;
     animation: medalFloat 5s ease-in-out infinite;
+}
+
+.medal-3d.slide-in-left {
+    animation: slideInLeft 0.5s ease-out forwards, medalFloat 5s ease-in-out 0.5s infinite;
+}
+
+.medal-3d.slide-in-right {
+    animation: slideInRight 0.5s ease-out forwards, medalFloat 5s ease-in-out 0.5s infinite;
+}
+
+.medal-3d.slide-out-left {
+    animation: slideOutLeft 0.5s ease-in forwards;
+}
+
+.medal-3d.slide-out-right {
+    animation: slideOutRight 0.5s ease-in forwards;
+}
+
+@keyframes slideInLeft {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOutLeft {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+}
+
+@keyframes slideOutRight {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(100%);
+        opacity: 0;
+    }
 }
 
 .medal-svg {

@@ -1341,37 +1341,71 @@ function setupMedalNavigation(): void {
   if (!medals.length || !leftArrow || !rightArrow) return;
 
   let currentIndex = 0;
+  let isAnimating = false;
 
   const medalData = [
     { name: 'Бронзовый Ранг', subtitle: 'Уровень 1' },
     { name: 'Серебряный Ранг', subtitle: 'Уровень 2' }
   ];
 
-  const updateMedal = (index: number) => {
-    medals.forEach((medal, i) => {
-      if (i === index) {
-        medal.classList.add('active');
-      } else {
-        medal.classList.remove('active');
-      }
+  const updateMedal = (newIndex: number, direction: 'left' | 'right') => {
+    if (isAnimating) return;
+    isAnimating = true;
+
+    const currentMedal = medals[currentIndex];
+    const newMedal = medals[newIndex];
+
+    // Remove all animation classes first
+    medals.forEach(m => {
+      m.classList.remove('active', 'slide-in-left', 'slide-in-right', 'slide-out-left', 'slide-out-right');
     });
 
-    if (medalTitle) medalTitle.textContent = medalData[index].name;
-    if (medalSubtitle) medalSubtitle.textContent = medalData[index].subtitle;
+    // Animate out current medal
+    currentMedal.classList.add('active');
+    if (direction === 'left') {
+      currentMedal.classList.add('slide-out-right');
+    } else {
+      currentMedal.classList.add('slide-out-left');
+    }
+
+    // Animate in new medal after a delay
+    setTimeout(() => {
+      currentMedal.classList.remove('active');
+      newMedal.classList.add('active');
+
+      if (direction === 'left') {
+        newMedal.classList.add('slide-in-left');
+      } else {
+        newMedal.classList.add('slide-in-right');
+      }
+
+      // Update text
+      if (medalTitle) medalTitle.textContent = medalData[newIndex].name;
+      if (medalSubtitle) medalSubtitle.textContent = medalData[newIndex].subtitle;
+
+      currentIndex = newIndex;
+
+      // Allow next animation after current one completes
+      setTimeout(() => {
+        isAnimating = false;
+      }, 500);
+    }, 250);
   };
 
   leftArrow.addEventListener('click', () => {
-    currentIndex = (currentIndex - 1 + medals.length) % medals.length;
-    updateMedal(currentIndex);
+    const newIndex = (currentIndex - 1 + medals.length) % medals.length;
+    updateMedal(newIndex, 'left');
   });
 
   rightArrow.addEventListener('click', () => {
-    currentIndex = (currentIndex + 1) % medals.length;
-    updateMedal(currentIndex);
+    const newIndex = (currentIndex + 1) % medals.length;
+    updateMedal(newIndex, 'right');
   });
 
   // Initialize first medal as active
-  updateMedal(0);
+  medals[0].classList.add('active');
+  if (medalTitle) medalTitle.textContent = medalData[0].name;
+  if (medalSubtitle) medalSubtitle.textContent = medalData[0].subtitle;
 }
 
 // ==================== INIT ====================
