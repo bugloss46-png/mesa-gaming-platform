@@ -312,7 +312,7 @@
     justify-content: center;
     gap: 40px;
     position: relative;
-    overflow: hidden;
+    overflow: visible;
 }
 
 .medal-showcase::before {
@@ -325,8 +325,8 @@
 
 .medal-showcase-content {
     position: relative;
-    width: 200px;
-    height: 200px;
+    width: 550px;
+    height: 450px;
     display: flex;
     align-items: center;
     justify-content: center;
