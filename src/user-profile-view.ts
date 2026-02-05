@@ -465,6 +465,14 @@ function setupGameSelector(user: User): void {
       if (gameId) selectGame(gameId, user);
     });
   });
+
+  // Setup account header button
+  const accountHeaderBtn = document.getElementById('accountHeaderBtn');
+  if (accountHeaderBtn) {
+    accountHeaderBtn.addEventListener('click', () => {
+      selectGame('account', user);
+    });
+  }
 }
 
 function selectGame(gameId: string, user: User): void {
