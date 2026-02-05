@@ -370,11 +370,11 @@
 }
 
 .medal-nav-left {
-    left: -60px;
+    left: 10px;
 }
 
 .medal-nav-right {
-    right: -60px;
+    right: 10px;
 }
 
 .medal-showcase-info {
@@ -473,10 +473,7 @@
 
 /* 3D Medal Container - Serious Style */
 .medal-3d {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    position: relative;
     width: 300px;
     height: 300px;
     z-index: 3;
